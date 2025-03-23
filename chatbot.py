@@ -111,6 +111,16 @@ def extract_preference(text):
             return word
     return None
 
+# To Add a follow-up line to LLM response based on intent
+def get_response_with_followup(response_text, intent):
+    follow_ups = {
+        "trip_plan": "\n\n🌍 Is there another destination you'd like help planning?",
+        "food_recommendation": "\n\n🍽️ Curious about food in a different place?",
+        "destination_suggestion": "\n\n✈️ Would you like ideas for a different type of destination?",
+        "travel_tip": "\n\n🧳 Want packing tips or advice for a specific country?",
+    }
+    return response_text.strip() + follow_ups.get(intent, "")
+
 # Main function to run the Travel Planner Assistant bot
 def travel_bot():
     print("🌍 Hi there! I’m your Travel Planner Assistant. ✨")
@@ -174,6 +184,7 @@ def travel_bot():
                 try:
                     response = llm._call(prompt)
                     time.sleep(1)
+                    response = get_response_with_followup(response, "trip_plan")
                     print(f"{format_response(response)}\n")
                 except Exception:
                     print("🤖 Sorry, I couldn't create your travel plan right now. Please try again later.\n")
@@ -198,6 +209,7 @@ def travel_bot():
             try:
                 response = llm._call(prompt)
                 time.sleep(1)
+                response = get_response_with_followup(response, "food_recommendation")
                 print(f"{format_response(response)}\n")
             except Exception:
                 print("🤖 Oops, I couldn’t find food suggestions. Try again later.\n")
@@ -218,6 +230,7 @@ def travel_bot():
                 if not response.strip():
                  raise ValueError("Empty response from LLM.")
                 time.sleep(1)
+                response = get_response_with_followup(response, "destination_suggestion")
                 print(f"{format_response(response)}\n")
             except Exception:
                 print("🤖 Sorry, I couldn't find suggestions right now. Please try again in a moment.\n")
@@ -227,6 +240,7 @@ def travel_bot():
             try:
                 response = llm._call(prompt)
                 time.sleep(1)
+                response = get_response_with_followup(response, "travel_tip")
                 print(f"{format_response(response)}\n")
             except Exception:
                 print("🤖 Couldn't fetch tips right now.\n")
