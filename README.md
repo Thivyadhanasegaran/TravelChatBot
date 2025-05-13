@@ -10,6 +10,10 @@ This bot interacts with users conversationally to:
 - Generate personalized itineraries
 - Handle unexpected inputs gracefully
 
+## ▶️ Live Demo
+
+   [Watch Live Demo](https://drive.google.com/file/d/1Q0Az4WHwLLRr6jRFOuH4d7-2z6EgcU62/view?usp=drive_link)
+
 
 ## 🔧 Tech Stack
 
